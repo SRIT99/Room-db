@@ -7,8 +7,8 @@ import kotlinx.coroutines.flow.onEach
 class Repository(
     private val contactDao:ContactDao
 ) {
-    suspend fun insertContact(contact: Contact)= contactDao.insertContact(contact)
-    fun updateContact(contact: Contact) = contactDao.updateContact(contact)
+    suspend fun upsertContact(contact: Contact)= contactDao.upsertContact(contact)
+//    fun updateContact(contact: Contact) = contactDao.updateContact(contact)
    suspend fun deleteContact(contact: Contact) = contactDao.deleteContact(contact)
    fun getAllContacts() = contactDao.getAllContacts().onEach { contacts-> }
 

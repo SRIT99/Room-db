@@ -1,7 +1,9 @@
 package com.androidsrit.roomdb.presentation.screens
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -60,19 +62,30 @@ fun HomeScreenUI(
             items(state.allContacts) {
 
                 Spacer(modifier = Modifier.height(5.dp))
-                ContactItemUi(contact = it, vm)
+                ContactItemUi(contact = it, vm, navController)
                 Spacer(modifier = Modifier.height(5.dp))
             }
         }
     }
 }
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun ContactItemUi(contact: Contact, vm: ContactViewModel) {
+fun ContactItemUi(contact: Contact, vm: ContactViewModel, navController: NavHostController) {
     Card(
         modifier = Modifier
             .fillMaxWidth() .padding(start = 5.dp, end = 5.dp)
-            .clickable { }, shape = RoundedCornerShape(20.dp),
+            .combinedClickable(
+                onClick = {},
+                onDoubleClick = {},
+                onLongClick = {
+                    vm.state.value.id.value = contact.id
+                    vm.state.value.name.value = contact.name
+                    vm.state.value.phone.value = contact.phoneNumber
+                    vm.state.value.email.value = contact.email
+                    navController.navigate(Routes.AddEditScreen)
+                }
+            ), shape = RoundedCornerShape(20.dp),
         colors = CardDefaults.cardColors(
             containerColor = Color(0xFF2A2828)
         )
