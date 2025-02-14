@@ -7,6 +7,8 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
 import com.androidsrit.roomdb.data.entity.Contact
+import kotlinx.coroutines.flow.Flow
+
 @Dao
 interface ContactDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
@@ -19,5 +21,5 @@ interface ContactDao {
     fun updateContact(contact: Contact)
 
     @Query("SELECT * FROM Contact")
-    fun getAllContacts(): List<Contact>
+    fun getAllContacts(): Flow<List<Contact>>
 }

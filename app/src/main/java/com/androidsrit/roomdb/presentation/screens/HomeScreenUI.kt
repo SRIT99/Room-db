@@ -4,8 +4,10 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -52,10 +54,11 @@ fun HomeScreenUI(
         LazyColumn(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(12.dp),
+                .padding(12.dp).background(Color(0xFF4F571D)),
         ) {
             items(state.allContacts) {
                 ContactItemUi(contact = it)
+                Spacer(modifier = Modifier.height(5.dp))
             }
         }
     }
@@ -65,10 +68,10 @@ fun HomeScreenUI(
 fun ContactItemUi(contact: Contact) {
     Card(
         modifier = Modifier
-            .fillMaxWidth()
+            .fillMaxWidth() .padding(start = 5.dp, end = 5.dp)
             .clickable { }, shape = RoundedCornerShape(20.dp),
         colors = CardDefaults.cardColors(
-            containerColor = Color(0xfff2f2f2)
+            containerColor = Color(0xFF2A2828)
         )
     ) {
         Row(
