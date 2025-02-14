@@ -49,12 +49,31 @@ fun insertContact(){
     state.value.name.value = ""
     state.value.phone.value = ""
     state.value.email.value = ""
+    state.value.id.value = 0
 }
+    fun deleteContact(){
+        val contact = Contact(
+        id = state.value.id.value,
+        name = state.value.name.value,
+        phoneNumber = state.value.phone.value,
+        email = state.value.email.value
+
+        )
+        viewModelScope.launch {
+
+            repository.deleteContact(contact)
+        }
+        state.value.name.value = ""
+        state.value.phone.value = ""
+        state.value.email.value = ""
+        state.value.id.value = 0
+    }
 }
 
 data class AppState(
     var loading: Boolean= false,
     var error: String? = null,
+    var id: MutableState<Int> = mutableStateOf(0),
     var allContacts: List<Contact> = emptyList<Contact>(),
     var name: MutableState<String> = mutableStateOf(""),
     var phone: MutableState<String> = mutableStateOf(""),

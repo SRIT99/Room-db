@@ -9,7 +9,7 @@ class Repository(
 ) {
     suspend fun insertContact(contact: Contact)= contactDao.insertContact(contact)
     fun updateContact(contact: Contact) = contactDao.updateContact(contact)
-  fun deleteContact(contact: Contact) = contactDao.deleteContact(contact)
+   suspend fun deleteContact(contact: Contact) = contactDao.deleteContact(contact)
    fun getAllContacts() = contactDao.getAllContacts().onEach { contacts-> }
 
 }

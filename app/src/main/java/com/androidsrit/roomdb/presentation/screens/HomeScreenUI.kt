@@ -14,6 +14,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Add
+import androidx.compose.material.icons.rounded.Delete
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.FloatingActionButton
@@ -54,10 +55,12 @@ fun HomeScreenUI(
         LazyColumn(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(12.dp).background(Color(0xFF4F571D)),
+                .background(Color(0xFF4F571D)),
         ) {
             items(state.allContacts) {
-                ContactItemUi(contact = it)
+
+                Spacer(modifier = Modifier.height(5.dp))
+                ContactItemUi(contact = it, vm)
                 Spacer(modifier = Modifier.height(5.dp))
             }
         }
@@ -65,7 +68,7 @@ fun HomeScreenUI(
 }
 
 @Composable
-fun ContactItemUi(contact: Contact) {
+fun ContactItemUi(contact: Contact, vm: ContactViewModel) {
     Card(
         modifier = Modifier
             .fillMaxWidth() .padding(start = 5.dp, end = 5.dp)
@@ -85,6 +88,18 @@ fun ContactItemUi(contact: Contact) {
                 Text(text = contact.phoneNumber, fontSize = 16.sp)
                 Text(text = contact.email, fontSize = 16.sp)
             }
+            Spacer(modifier = Modifier.weight(1f))
+            Icon(
+                imageVector = Icons.Rounded.Delete,
+                contentDescription = null,
+                modifier = Modifier.clickable {
+                    vm.state.value.id.value = contact.id
+                    vm.state.value.name.value = contact.name
+                    vm.state.value.phone.value = contact.phoneNumber
+                    vm.state.value.email.value = contact.email
+                    vm.deleteContact()
+                }
+            )
         }
     }
 }
