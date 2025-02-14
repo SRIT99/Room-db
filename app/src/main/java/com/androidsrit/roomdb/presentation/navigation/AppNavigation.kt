@@ -13,6 +13,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.androidsrit.roomdb.ContactViewModel
 import com.androidsrit.roomdb.presentation.screens.AddEditScreenUI
+import com.androidsrit.roomdb.presentation.screens.HomeScreenUI
 
 @Composable
 fun AppNavigation(modifier: Modifier = Modifier, vm : ContactViewModel = hiltViewModel()) {
@@ -21,18 +22,10 @@ fun AppNavigation(modifier: Modifier = Modifier, vm : ContactViewModel = hiltVie
 
     NavHost(navController = navController, startDestination = Routes.HomeScreen) {
         composable<Routes.HomeScreen> {
-            Box(modifier = Modifier.fillMaxSize()){
-                Button(
-                    onClick = {
-                        navController.navigate(Routes.AddEditScreen)
-                    }
-                ){
-                    Text(text = "Add Contact")
-                }
-            }
+            HomeScreenUI(modifier = Modifier, state = state.value, navController = navController, vm = vm)
         }
         composable<Routes.AddEditScreen> {
-            AddEditScreenUI(modifier = Modifier, onEvent = {vm.insertContact()}, state = state.value)
+            AddEditScreenUI(modifier = Modifier, onEvent = {vm.insertContact()}, state = state.value, navController =  navController)
         }
 
     }

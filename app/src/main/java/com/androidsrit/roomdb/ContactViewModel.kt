@@ -29,6 +29,9 @@ fun insertContact(){
     viewModelScope.launch {
          repository.insertContact(contact)
     }
+    state.value.name.value = ""
+    state.value.phone.value = ""
+    state.value.email.value = ""
 }
 }
 
