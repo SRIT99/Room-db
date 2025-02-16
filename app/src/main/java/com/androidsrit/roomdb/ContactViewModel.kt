@@ -41,7 +41,8 @@ fun insertContact(){
         id = state.value.id.value,
         name = state.value.name.value,
         phoneNumber = state.value.phone.value,
-        email = state.value.email.value
+        email = state.value.email.value,
+        dateAdded = System.currentTimeMillis()
     )
 
     viewModelScope.launch {
@@ -57,8 +58,8 @@ fun insertContact(){
         id = state.value.id.value,
         name = state.value.name.value,
         phoneNumber = state.value.phone.value,
-        email = state.value.email.value
-
+        email = state.value.email.value,
+        dateAdded = System.currentTimeMillis()
         )
         viewModelScope.launch {
 
