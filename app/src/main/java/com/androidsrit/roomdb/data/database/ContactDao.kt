@@ -21,6 +21,6 @@ interface ContactDao {
     @Update
     fun updateContact(contact: Contact)
 
-    @Query("SELECT * FROM Contact")
+    @Query("SELECT * FROM Contact_table")
     fun getAllContacts(): Flow<List<Contact>>
 }

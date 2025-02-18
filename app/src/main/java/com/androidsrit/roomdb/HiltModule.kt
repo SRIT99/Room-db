@@ -18,10 +18,10 @@ object HiltModule {
     @Singleton
     fun provideDatabase(application: Application): ContactDatabase {
         return Room.databaseBuilder(
-            application,
-            ContactDatabase::class.java,
-            "contact_database.sql"
-        ).build()
+                application,
+                ContactDatabase::class.java,
+                "contact_database.sql"
+            ).fallbackToDestructiveMigration(false).build()
     }
 
 
