@@ -42,7 +42,7 @@ fun insertContact(){
         name = state.value.name.value,
         phoneNumber = state.value.phone.value,
         email = state.value.email.value,
-        addedTime = System.currentTimeMillis()
+//        addedTime = System.currentTimeMillis()
     )
 
     viewModelScope.launch {

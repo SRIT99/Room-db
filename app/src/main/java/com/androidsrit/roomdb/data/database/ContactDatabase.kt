@@ -2,12 +2,13 @@ package com.androidsrit.roomdb.data.database
 
 import androidx.room.AutoMigration
 import androidx.room.Database
+import androidx.room.DeleteColumn
 import androidx.room.RenameColumn
 import androidx.room.RoomDatabase
 import androidx.room.migration.AutoMigrationSpec
 import com.androidsrit.roomdb.data.entity.Contact
 
-@Database(entities = [Contact::class],version = 3, exportSchema = true,
+@Database(entities = [Contact::class],version = 4 , exportSchema = true,
     autoMigrations = [
         AutoMigration(
             from = 1,
@@ -17,6 +18,11 @@ import com.androidsrit.roomdb.data.entity.Contact
             from = 2,
             to = 3,
             spec = ContactDatabase.RenameAddedAtToAddedTime::class
+        ),
+        AutoMigration(
+            from = 3,
+            to = 4,
+            spec = ContactDatabase.DeleteAddedTime::class
         )]
 )
 abstract class ContactDatabase: RoomDatabase() {
@@ -24,5 +30,7 @@ abstract class ContactDatabase: RoomDatabase() {
 
         @RenameColumn(tableName = "Contact", fromColumnName = "addedAt", toColumnName = "addedTime")
         class RenameAddedAtToAddedTime : AutoMigrationSpec
+    @DeleteColumn(tableName = "Contact", columnName = "addedTime")
+    class DeleteAddedTime : AutoMigrationSpec
 
     }
