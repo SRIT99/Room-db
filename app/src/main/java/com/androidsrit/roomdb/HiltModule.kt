@@ -21,7 +21,7 @@ object HiltModule {
                 application,
                 ContactDatabase::class.java,
                 "contact_database.sql"
-            ).fallbackToDestructiveMigration(false).build()
+            ).build()
     }
 
 

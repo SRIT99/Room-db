@@ -9,7 +9,7 @@ import androidx.room.RoomDatabase
 import androidx.room.migration.AutoMigrationSpec
 import com.androidsrit.roomdb.data.entity.Contact
 
-@Database(entities = [Contact::class],version = 5 , exportSchema = true,
+@Database(entities = [Contact::class],version = 1 , exportSchema = true,
 //    autoMigrations = [
 //        AutoMigration(
 //            from = 1,

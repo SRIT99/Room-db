@@ -1,7 +1,6 @@
 package com.androidsrit.roomdb.presentation.screens
 
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Column
@@ -22,14 +21,12 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -48,7 +45,7 @@ fun HomeScreenUI(
     vm: ContactViewModel = hiltViewModel(),
     navController: NavHostController = rememberNavController()
 ) {
-    Scaffold (
+    Scaffold(
         floatingActionButton = {
             FloatingActionButton(
                 onClick = { navController.navigate(Routes.AddEditScreen) }
@@ -60,8 +57,7 @@ fun HomeScreenUI(
         it
         LazyColumn(
             modifier = Modifier
-                .fillMaxSize()
-                .background(Color(0xFF4F571D)),
+                .fillMaxSize(),
         ) {
             items(state.allContacts) {
 
@@ -78,7 +74,8 @@ fun HomeScreenUI(
 fun ContactItemUi(contact: Contact, vm: ContactViewModel, navController: NavHostController) {
     Card(
         modifier = Modifier
-            .fillMaxWidth() .padding(start = 5.dp, end = 5.dp)
+            .fillMaxWidth()
+            .padding(start = 5.dp, end = 5.dp)
             .combinedClickable(
                 onClick = {},
                 onDoubleClick = {},
@@ -91,7 +88,7 @@ fun ContactItemUi(contact: Contact, vm: ContactViewModel, navController: NavHost
                 }
             ), shape = RoundedCornerShape(20.dp),
         colors = CardDefaults.cardColors(
-            containerColor = Color(0xFF2A2828)
+            containerColor = MaterialTheme.colorScheme.onPrimary
         )
     ) {
         Row(
@@ -99,11 +96,21 @@ fun ContactItemUi(contact: Contact, vm: ContactViewModel, navController: NavHost
                 .fillMaxWidth()
                 .padding(10.dp),
             verticalAlignment = Alignment.CenterVertically
-        ){
-            Column{
-                Text(text = contact.name, fontSize = 20.sp)
-                Text(text = contact.phoneNumber, fontSize = 16.sp)
-                Text(text = contact.email, fontSize = 16.sp)
+        ) {
+            Column {
+                Text(
+                    text = contact.name, style = MaterialTheme.typography.titleLarge,
+                    color = MaterialTheme.colorScheme.primary
+                )
+                Text(
+                    text = contact.phoneNumber,
+                    fontSize = 16.sp,
+                    style = MaterialTheme.typography.bodyLarge,
+                    color = MaterialTheme.colorScheme.primary
+                )
+                Text(text = contact.email, fontSize = 16.sp,
+                    style = MaterialTheme.typography.bodyLarge,
+                    color = MaterialTheme.colorScheme.primary)
             }
             Spacer(modifier = Modifier.weight(1f))
             Icon(
@@ -115,8 +122,10 @@ fun ContactItemUi(contact: Contact, vm: ContactViewModel, navController: NavHost
                     vm.state.value.phone.value = contact.phoneNumber
                     vm.state.value.email.value = contact.email
                     vm.deleteContact()
-                }
+                },
+                tint = MaterialTheme.colorScheme.primary
             )
         }
+
     }
 }
