@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.room.Room
 import com.androidsrit.roomdb.data.Repository
 import com.androidsrit.roomdb.data.database.ContactDatabase
+import com.androidsrit.roomdb.data.database.MIGRATION_1_2
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -21,7 +22,7 @@ object HiltModule {
                 application,
                 ContactDatabase::class.java,
                 "contact_database.sql"
-            ).build()
+            ).addMigrations(MIGRATION_1_2).build()
     }
 
 

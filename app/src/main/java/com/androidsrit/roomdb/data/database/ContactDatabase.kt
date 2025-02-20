@@ -9,7 +9,7 @@ import androidx.room.RoomDatabase
 import androidx.room.migration.AutoMigrationSpec
 import com.androidsrit.roomdb.data.entity.Contact
 
-@Database(entities = [Contact::class],version = 1 , exportSchema = true,
+@Database(entities = [Contact::class],version = 2 , exportSchema = true,
 //    autoMigrations = [
 //        AutoMigration(
 //            from = 1,
@@ -34,12 +34,12 @@ import com.androidsrit.roomdb.data.entity.Contact
 )
 abstract class ContactDatabase: RoomDatabase() {
     abstract  fun contactDao(): ContactDao
-
-        @RenameColumn(tableName = "Contact", fromColumnName = "addedAt", toColumnName = "addedTime")
-        class RenameAddedAtToAddedTime : AutoMigrationSpec
-    @DeleteColumn(tableName = "Contact", columnName = "addedTime")
-    class DeleteAddedTime : AutoMigrationSpec
-    @RenameTable(fromTableName = "Contact", toTableName = "Contact_table")
-    class RenameContactTable: AutoMigrationSpec
+//
+//        @RenameColumn(tableName = "Contact", fromColumnName = "addedAt", toColumnName = "addedTime")
+//        class RenameAddedAtToAddedTime : AutoMigrationSpec
+//    @DeleteColumn(tableName = "Contact", columnName = "addedTime")
+//    class DeleteAddedTime : AutoMigrationSpec
+//    @RenameTable(fromTableName = "Contact", toTableName = "Contact_table")
+//    class RenameContactTable: AutoMigrationSpec
 
     }
