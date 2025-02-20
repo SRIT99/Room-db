@@ -27,6 +27,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -88,9 +89,9 @@ fun ContactItemUi(contact: Contact, vm: ContactViewModel, navController: NavHost
                 }
             ), shape = RoundedCornerShape(20.dp),
         colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.onPrimary
-        )
-    ) {
+            containerColor = Color(0xFFCDC1FF)
+
+    )){
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -100,17 +101,17 @@ fun ContactItemUi(contact: Contact, vm: ContactViewModel, navController: NavHost
             Column {
                 Text(
                     text = contact.name, style = MaterialTheme.typography.titleLarge,
-                    color = MaterialTheme.colorScheme.primary
+                    color = MaterialTheme.colorScheme.onPrimary
                 )
                 Text(
                     text = contact.phoneNumber,
                     fontSize = 16.sp,
                     style = MaterialTheme.typography.bodyLarge,
-                    color = MaterialTheme.colorScheme.primary
+                    color = MaterialTheme.colorScheme.onPrimary
                 )
                 Text(text = contact.email, fontSize = 16.sp,
                     style = MaterialTheme.typography.bodyLarge,
-                    color = MaterialTheme.colorScheme.primary)
+                    color = MaterialTheme.colorScheme.onPrimary)
             }
             Spacer(modifier = Modifier.weight(1f))
             Icon(
@@ -123,7 +124,7 @@ fun ContactItemUi(contact: Contact, vm: ContactViewModel, navController: NavHost
                     vm.state.value.email.value = contact.email
                     vm.deleteContact()
                 },
-                tint = MaterialTheme.colorScheme.primary
+                tint = MaterialTheme.colorScheme.onPrimary
             )
         }
 

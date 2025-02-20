@@ -80,7 +80,8 @@ fun AddEditScreenUI(
                     Text(text = "Name")
                 },
                 colors = colors(
-                    unfocusedContainerColor = MaterialTheme.colorScheme.tertiary
+                    unfocusedContainerColor = MaterialTheme.colorScheme.tertiary,
+                    focusedContainerColor = MaterialTheme.colorScheme.onPrimary
                 )
                 )
 
@@ -91,7 +92,11 @@ fun AddEditScreenUI(
                 placeholder = { Text("Phone Number") },
                 label = {
                     Text(text = "Phone Number")
-                }
+                },
+                colors = colors(
+                    unfocusedContainerColor = MaterialTheme.colorScheme.tertiary,
+                    focusedContainerColor = MaterialTheme.colorScheme.onSecondary
+                )
             )
             Spacer(modifier = Modifier.height(8.dp))
             OutlinedTextField(
@@ -100,7 +105,11 @@ fun AddEditScreenUI(
                 placeholder = { Text("Contact's Email") },
                 label = {
                     Text(text = "Email")
-                }
+                },
+                colors = colors(
+                    unfocusedContainerColor = MaterialTheme.colorScheme.tertiary,
+                    focusedContainerColor = MaterialTheme.colorScheme.onPrimary
+                )
             )
             Spacer(modifier = Modifier.height(8.dp))
             Button(
@@ -112,9 +121,9 @@ fun AddEditScreenUI(
                 .fillMaxWidth()
                 .padding(60.dp),
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = MaterialTheme.colorScheme.tertiary
+                    containerColor = MaterialTheme.colorScheme.onPrimary
                 )) {
-                Text(text = "Save")
+                Text(text = "Save", color = MaterialTheme.colorScheme.primary)
             }
         }
 
