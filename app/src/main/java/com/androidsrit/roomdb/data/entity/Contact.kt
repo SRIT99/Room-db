@@ -11,8 +11,9 @@ data class Contact (
     var name : String,
     var phoneNumber: String,
     var email: String,
-  //column added
-    @ColumnInfo("addedTime", defaultValue = "0")
-    var addedTime: Long = System.currentTimeMillis()
+
+   @ColumnInfo("addedAt", defaultValue = "0")
+   var addedAt: Long = System.currentTimeMillis()
+
 
 )

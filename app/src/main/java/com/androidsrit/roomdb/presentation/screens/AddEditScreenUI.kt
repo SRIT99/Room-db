@@ -81,7 +81,7 @@ fun AddEditScreenUI(
                 },
                 colors = colors(
                     unfocusedContainerColor = MaterialTheme.colorScheme.tertiary,
-                    focusedContainerColor = MaterialTheme.colorScheme.onPrimary
+                    focusedContainerColor = MaterialTheme.colorScheme.onSecondary
                 )
                 )
 
@@ -108,7 +108,7 @@ fun AddEditScreenUI(
                 },
                 colors = colors(
                     unfocusedContainerColor = MaterialTheme.colorScheme.tertiary,
-                    focusedContainerColor = MaterialTheme.colorScheme.onPrimary
+                    focusedContainerColor = MaterialTheme.colorScheme.onSecondary
                 )
             )
             Spacer(modifier = Modifier.height(8.dp))
