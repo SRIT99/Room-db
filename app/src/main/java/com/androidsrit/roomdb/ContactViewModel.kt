@@ -5,6 +5,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.androidsrit.roomdb.data.Repository
+import com.androidsrit.roomdb.data.database.ContactAddress
 import com.androidsrit.roomdb.data.entity.Address
 import com.androidsrit.roomdb.data.entity.Contact
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -21,10 +22,10 @@ class ContactViewModel @Inject constructor(
     val repository : Repository
 ):ViewModel(){
 private var _state = MutableStateFlow<AppState>(AppState())
-    val allContacts = repository.getAllContacts().stateIn(
+    val allContacts = repository.getAllContactsWithAddress().stateIn(
         scope = viewModelScope,
         started = SharingStarted.WhileSubscribed(),
-        initialValue = emptyList<Contact>()
+        initialValue = emptyList<ContactAddress>()
     )
     var state = combine(_state, allContacts){
         state, contacts ->
@@ -82,7 +83,7 @@ data class AppState(
     var loading: Boolean= false,
     var error: String? = null,
     var id: MutableState<Int> = mutableStateOf(0),
-    var allContacts: List<Contact> = emptyList<Contact>(),
+    var allContacts: List<ContactAddress> = emptyList<ContactAddress>(),
     var name: MutableState<String> = mutableStateOf(""),
     var phone: MutableState<String> = mutableStateOf(""),
     var email: MutableState<String> = mutableStateOf(""),

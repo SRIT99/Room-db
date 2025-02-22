@@ -38,4 +38,7 @@ interface ContactDao {
         val updatedAddress = address.copy(contactId = contactId)
         upsertAddress(updatedAddress)
     }
+
+    @Query("SELECT * FROM Contact_table")
+    fun getAllContactsWithAddress():Flow<List<ContactAddress>>
 }

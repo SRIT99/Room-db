@@ -1,5 +1,6 @@
 package com.androidsrit.roomdb.presentation.screens
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.combinedClickable
@@ -25,6 +26,8 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -35,7 +38,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.androidsrit.roomdb.AppState
 import com.androidsrit.roomdb.ContactViewModel
-import com.androidsrit.roomdb.data.entity.Contact
+import com.androidsrit.roomdb.data.database.ContactAddress
 import com.androidsrit.roomdb.presentation.navigation.Routes
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -63,7 +66,7 @@ fun HomeScreenUI(
             items(state.allContacts) {
 
                 Spacer(modifier = Modifier.height(5.dp))
-                ContactItemUi(contact = it, vm, navController)
+                ContactItemUi(contactAddress = it, vm, navController)
                 Spacer(modifier = Modifier.height(5.dp))
             }
         }
@@ -72,19 +75,24 @@ fun HomeScreenUI(
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun ContactItemUi(contact: Contact, vm: ContactViewModel, navController: NavHostController) {
+fun ContactItemUi(contactAddress: ContactAddress, vm: ContactViewModel, navController: NavHostController) {
+    val isExpanded = remember{
+        mutableStateOf(false)
+    }
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .padding(start = 5.dp, end = 5.dp)
             .combinedClickable(
-                onClick = {},
+                onClick = {
+                    isExpanded.value = !isExpanded.value
+                },
                 onDoubleClick = {},
                 onLongClick = {
-                    vm.state.value.id.value = contact.id
-                    vm.state.value.name.value = contact.name
-                    vm.state.value.phone.value = contact.phoneNumber
-                    vm.state.value.email.value = contact.email
+                    vm.state.value.id.value = contactAddress.contact.id
+                    vm.state.value.name.value = contactAddress.contact.name
+                    vm.state.value.phone.value = contactAddress.contact.phoneNumber
+                    vm.state.value.email.value = contactAddress.contact.email
                     navController.navigate(Routes.AddEditScreen)
                 }
             ), shape = RoundedCornerShape(20.dp),
@@ -100,28 +108,31 @@ fun ContactItemUi(contact: Contact, vm: ContactViewModel, navController: NavHost
         ) {
             Column {
                 Text(
-                    text = contact.name, style = MaterialTheme.typography.titleLarge,
+                    text = contactAddress.contact.name, style = MaterialTheme.typography.titleLarge,
                     color = MaterialTheme.colorScheme.onPrimary
                 )
                 Text(
-                    text = contact.phoneNumber,
+                    text = contactAddress.contact.phoneNumber,
                     fontSize = 16.sp,
                     style = MaterialTheme.typography.bodyLarge,
                     color = MaterialTheme.colorScheme.onPrimary
                 )
-                Text(text = contact.email, fontSize = 16.sp,
+                Text(text = contactAddress.contact.email, fontSize = 16.sp,
                     style = MaterialTheme.typography.bodyLarge,
                     color = MaterialTheme.colorScheme.onPrimary)
+                   AnimatedVisibility(visible = isExpanded.value){
+                    Text(text = contactAddress.address.address, fontSize = 16.sp)
+                   }
             }
             Spacer(modifier = Modifier.weight(1f))
             Icon(
                 imageVector = Icons.Rounded.Delete,
                 contentDescription = null,
                 modifier = Modifier.clickable {
-                    vm.state.value.id.value = contact.id
-                    vm.state.value.name.value = contact.name
-                    vm.state.value.phone.value = contact.phoneNumber
-                    vm.state.value.email.value = contact.email
+                    vm.state.value.id.value = contactAddress.contact.id
+                    vm.state.value.name.value = contactAddress.contact.name
+                    vm.state.value.phone.value = contactAddress.contact.phoneNumber
+                    vm.state.value.email.value = contactAddress.contact.email
                     vm.deleteContact()
                 },
                 tint = MaterialTheme.colorScheme.onPrimary
