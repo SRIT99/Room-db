@@ -112,6 +112,19 @@ fun AddEditScreenUI(
                 )
             )
             Spacer(modifier = Modifier.height(8.dp))
+            OutlinedTextField(
+                value = state.address.value,
+                onValueChange = {state.address.value = it},
+                placeholder = { Text("Contact's Address") },
+                label = {
+                    Text(text = "Address")
+                },
+                colors = colors(
+                    unfocusedContainerColor = MaterialTheme.colorScheme.tertiary,
+                    focusedContainerColor = MaterialTheme.colorScheme.onSecondary
+                )
+            )
+            Spacer(modifier = Modifier.height(8.dp))
             Button(
                 onClick = {
                     onEvent.invoke()

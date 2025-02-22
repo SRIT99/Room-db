@@ -5,6 +5,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.androidsrit.roomdb.data.Repository
+import com.androidsrit.roomdb.data.entity.Address
 import com.androidsrit.roomdb.data.entity.Contact
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -44,14 +45,19 @@ fun insertContact(){
         email = state.value.email.value,
 //        addedTime = System.currentTimeMillis()
     )
+    val address = Address(
+        address = state.value.address.value,
+        contactId = state.value.id.value
+    )
 
     viewModelScope.launch {
-         repository.upsertContact(contact)
+         repository.insertContactWithAddress(contact, address)
     }
     state.value.name.value = ""
     state.value.phone.value = ""
     state.value.email.value = ""
     state.value.id.value = 0
+    state.value.address.value = ""
 }
     fun deleteContact(){
         val contact = Contact(
@@ -68,6 +74,7 @@ fun insertContact(){
         state.value.phone.value = ""
         state.value.email.value = ""
         state.value.id.value = 0
+        state.value.address.value = ""
     }
 }
 
@@ -78,7 +85,7 @@ data class AppState(
     var allContacts: List<Contact> = emptyList<Contact>(),
     var name: MutableState<String> = mutableStateOf(""),
     var phone: MutableState<String> = mutableStateOf(""),
-    var email: MutableState<String> = mutableStateOf("")
-
+    var email: MutableState<String> = mutableStateOf(""),
+     var address : MutableState<String> = mutableStateOf("")
 
 )
